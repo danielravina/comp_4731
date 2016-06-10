@@ -1,0 +1,6 @@
+1) 
+    a) stty eof ^a; stty -g
+    b) stty -echo; stty echo;
+2) 
+    a) see 2a.c
+    b) see 2b.c
