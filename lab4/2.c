@@ -10,6 +10,10 @@ void *readFifo(void *arg) {
 
   fifo = open(path, O_RDONLY);
 
+  if (fifo < 0) {
+    pthread_exit(&fifo);
+  }
+
   char buffer[BUFFERSIZE];
 
   while (1) {
@@ -19,13 +23,8 @@ void *readFifo(void *arg) {
   }
 
   pthread_exit(0);
-  return 0;
 }
 
-// Conclusion from output:
-// -----------------------
-//  The execution time is not consistent and somewhat random
-//
 int main(void) {
   pthread_t tid1, tid2;
 
@@ -33,4 +32,6 @@ int main(void) {
   pthread_create(&tid2, 0, readFifo, "/home/vagrant/fifo2");
 
   pthread_exit(0);
+
+  return 0;
 }
