@@ -24,9 +24,9 @@ int main(int argc, char const *argv[]) {
 
     char *token;
     inputBuffer[readLen] = '\0';
- 
+
     token = strtok(inputBuffer, " \n");
-    
+
     int i = 0;
     while(token != NULL){
       userInput[i] = token;

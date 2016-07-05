@@ -22,7 +22,7 @@ void *consume(void *args) {
   while(1) {
     sem_wait(&used);
     sem_wait(&lock);
-    
+
     i = buf.next_read;
 
     printf("- %d: %d <-- #%d\n", id, buf.data[i], i);
@@ -43,18 +43,18 @@ void *produce(void *args) {
   int value = 0;
 
   while(1) {
-    
+
     sem_wait(&available);
     sem_wait(&lock);
 
     i = buf.next_write;
-    
+
     buf.data[i] = value++;
 
     printf("+ %d: %d --> #%d\n", id, buf.data[i], i);
 
     buf.next_write = (buf.next_write + 1) % NITEMS;
-   
+
     sem_post(&lock);
     sem_post(&used);
 
@@ -76,7 +76,6 @@ void main(int argc, char const *argv[]) {
   pthread_create(&tid2, 0, produce, (void *) 1);
   pthread_create(&tid3, 0, consume, (void *) 0);
   pthread_create(&tid4, 0, consume, (void *) 1);
-
 
   pthread_exit(0);
 }
